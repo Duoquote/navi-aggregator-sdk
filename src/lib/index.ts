@@ -26,7 +26,6 @@ export async function swapRoutePTB(userAddress: string, minAmountOut: number, tx
   const tokenA = router.from;
   const tokenB = router.target;
   const allPaths = JSON.parse(JSON.stringify(router.routes));
-  console.log(`tokenA: ${tokenA}, tokenB: ${tokenB}`);
   if (
     Number(router.amount_in) !==
     router.routes.reduce(
@@ -48,14 +47,6 @@ export async function swapRoutePTB(userAddress: string, minAmountOut: number, tx
     const path = allPaths[i];
     const pathCoinAmountIn = Math.floor(path.amount_in);
     const pathCoinAmountOut = path.amount_out;
-    console.log(
-      `Path Index: `,
-      i,
-      `Amount In: `,
-      pathCoinAmountIn,
-      `Expected Amount Out: `,
-      pathCoinAmountOut
-    );
     let pathTempCoin: any = txb.splitCoins(coinIn, [pathCoinAmountIn]);
 
     for (let j = 0; j < path.path.length; j++) {
@@ -74,18 +65,6 @@ export async function swapRoutePTB(userAddress: string, minAmountOut: number, tx
       if (provider === "turbos") {
         tuborsVersion = route.info_for_ptb.contractVersionId;
       }
-      console.log(
-        `Route Index: `,
-        i,
-        "-",
-        j,
-        `provider: `,
-        provider,
-        `from: `,
-        tempTokenA,
-        `to: `,
-        tempTokenB
-      );
 
       amountInPTB = txb.moveCall({
         target: "0x2::coin::value",

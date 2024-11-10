@@ -59,7 +59,6 @@ export async function getRoute(
 
         return data.data as Router;
     } catch (error: any) {
-        console.error(`Error fetching routes from ${config.BASE_URL} with params ${JSON.stringify(params)}:`, error.message);
         throw error;
     }
 }
